@@ -2,3 +2,4 @@ sanic
 sanic-openapi
 sanic-cors
 sanic-jwt-extended
+requests-async
