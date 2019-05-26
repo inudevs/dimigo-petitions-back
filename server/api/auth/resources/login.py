@@ -16,7 +16,7 @@ async def auth_login(request):
     if not dimigoin_token: # 잘못된 로그인
         abort(404)
 
-    # check if _id exists in DB
+    # TODO: check if _id exists in DB
     # if not, query student profile and save to DB
     student = await dimigo_profile(dimigoin_token)
     if not student: # API server error
