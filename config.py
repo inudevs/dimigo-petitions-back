@@ -8,7 +8,7 @@ class Config(object):
 
     JWT_TOKEN_LOCATION = 'headers'
     JWT_HEADER_NAME = 'Authorization'
-    JWT_HEADER_TYPE	= 'Bearer'
+    JWT_HEADER_TYPE = 'Bearer'
     JWT_SECRET_KEY = os.urandom(24)
     MONGO_URI = ''
 

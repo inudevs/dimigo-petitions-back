@@ -7,7 +7,7 @@ from config import DevConfig
 def create_app():
     _app = Sanic(__name__)
     _app.config.from_object(DevConfig)
-    JWTManager(_app).init_app(_app)
+    JWTManager(_app)
     CORS(_app)
     return _app
 
