@@ -8,7 +8,10 @@ from sanic_jwt_extended import create_access_token, create_refresh_token
 
 @auth_api.post('/login')
 @doc.summary('검증 후 사용자 토큰 생성(로그인)')
-@doc.produces(login_model)
+@doc.produces(login_model, description='성공적')
+@doc.response(403, {}, description='잘못된 로그인 정보')
+@doc.response(404, {}, description='디미고인 API 서버 오류')
+@doc.response(500, {}, description='새로운 사용자 DB에 저장 중 오류')
 async def auth_login(request):
     _id, _password = request.json['id'], request.json['password']
 

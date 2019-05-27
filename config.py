@@ -3,7 +3,7 @@ import os
 
 class Config(object):
     API_VERSION = '0.0.1'
-    API_TITLE = 'Dimigo-Petitions API'
+    API_TITLE = '🗳️ Dimigo-Petitions API'
     API_DESCRIPTION = '선배님들의 허락을 받으면, 전통을 바꿀 수 있습니다.'
 
     JWT_TOKEN_LOCATION = 'headers'
