@@ -7,4 +7,3 @@ post_api = Blueprint(
 )
 
 __import__('server.api.post.resources.post')
-__import__('server.api.post.resources.write')

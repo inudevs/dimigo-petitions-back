@@ -12,6 +12,16 @@ class PostView(HTTPMethodView):
         return res_json({})
 
     @jwt_required
+    @doc.summary('청원 생성')
+    async def post(self, request):
+        return res_json({})
+
+    @jwt_required
+    @doc.summary('청원 수정')
+    async def put(self, request):
+        return res_json({})
+
+    @jwt_required
     @doc.summary('청원 삭제')
     async def delete(self, request):
         return res_json({})
