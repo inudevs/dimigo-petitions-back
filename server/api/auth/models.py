@@ -5,17 +5,17 @@ class LoginModel:
     password = doc.String('디미고 패스워드', required=True)
 
 class UserModel:
-    idx = doc.Integer()
-    name = doc.String()
-    grade = doc.String()
-    klass = doc.String()
-    number = doc.String()
-    serial = doc.String()
-    photo = doc.String()
-    email = doc.String()
-    user_type = doc.String()
+    idx = doc.Integer('디미고인에서의 idx')
+    name = doc.String('이름')
+    grade = doc.String('학년')
+    klass = doc.String('반')
+    number = doc.String('번호')
+    serial = doc.String('학번')
+    photo = doc.String('프로필 사진')
+    email = doc.String('이메일')
+    user_type = doc.String('회원 종류')
 
 class TokenModel:
-    token = doc.String()
+    token = doc.String('JWT 토큰')
     refresh_token = doc.String()
     user = UserModel
