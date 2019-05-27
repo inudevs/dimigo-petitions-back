@@ -15,5 +15,11 @@ def create_app():
 app = create_app()
 app.blueprint(swagger_blueprint)
 
+from motor.motor_asyncio import AsyncIOMotorClient
+
+@app.listener('before_server_start')
+def init(app, loop):
+    app.db = AsyncIOMotorClient(app.config.MONGO_URI)[app.config.MONGO_DB]
+
 from server.api import api
 app.blueprint(api)
