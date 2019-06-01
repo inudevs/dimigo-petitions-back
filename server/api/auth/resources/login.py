@@ -37,8 +37,12 @@ async def AuthLogin(request):
         if not res.acknowledged:
             abort(500)
 
-    token = await create_access_token(identity=_id, app=request.app)
-    refresh_token = await create_refresh_token(identity=_id, app=request.app)
+    identity = {
+        'id': str(user['_id']),
+        'name': _id
+    }
+    token = await create_access_token(identity=identity, app=request.app)
+    refresh_token = await create_refresh_token(identity=identity, app=request.app)
     return res_json({
         'token': token,
         'refresh_token': refresh_token,
