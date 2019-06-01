@@ -1,5 +1,10 @@
 from server.api.post import post_api
-from server.api.post.models import PostInputModel
+from server.api.post.models import (
+    PostInputModel, 
+    PostEditModel,
+    PostCreatedModel,
+    PostViewModel
+)
 from sanic.views import HTTPMethodView
 from sanic.exceptions import abort
 from sanic.response import json as res_json
@@ -13,6 +18,9 @@ import time
 @jwt_required
 @doc.summary('청원 생성')
 @doc.consumes(PostInputModel, content_type='application/json', location='body')
+@doc.produces(PostCreatedModel, content_type='application/json', description='성공적')
+@doc.response(200, None, description='성공')
+@doc.response(500, None, description='저장 중 오류')
 async def write_post(request, token: Token):
     user = token.jwt_identity
     post = {
@@ -34,6 +42,9 @@ async def write_post(request, token: Token):
 @post_api.get('/<post_id>')
 @jwt_required
 @doc.summary('청원 보기')
+@doc.produces(PostViewModel, content_type='application/json', description='성공적')
+@doc.response(200, None, description='성공')
+@doc.response(404, None, description='잘못된 요청; 없는 포스트')
 async def view_post(request, token: Token, post_id):
     post = await request.app.db.posts.find_one(ObjectId(post_id))
     if not post:
@@ -44,6 +55,10 @@ async def view_post(request, token: Token, post_id):
 @post_api.put('/<post_id>')
 @jwt_required
 @doc.summary('청원 수정')
+@doc.consumes(PostEditModel, content_type='application/json', location='body')
+@doc.response(200, None, description='성공')
+@doc.response(404, None, description='잘못된 요청; 없는 포스트')
+@doc.response(404, None, description='수정 중 오류')
 async def edit_post(request, token: Token, post_id):
     post = await request.app.db.posts.find_one(ObjectId(post_id))
     if not post:
@@ -65,6 +80,8 @@ async def edit_post(request, token: Token, post_id):
 @post_api.delete('/<post_id>')
 @jwt_required
 @doc.summary('청원 삭제')
+@doc.response(200, None, description='성공')
+@doc.response(404, None, description='잘못된 요청; 없는 포스트')
 async def delete_post(request, token: Token, post_id):
     res = await request.app.db.posts.delete_one({'_id': ObjectId(post_id)})
     if not res.acknowledged:
