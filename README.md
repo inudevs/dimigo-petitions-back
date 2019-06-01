@@ -1,5 +1,5 @@
 # Dimigo-Petitions
-Python의 비동기 웹 프레임워크인 Sanic을 사용
+Python의 비동기 웹 프레임워크인 Sanic을 사용; 프로젝트 구조와 문서화에 신경쓰며 개발하는 것이 목표
 
 ## API 목차
 
