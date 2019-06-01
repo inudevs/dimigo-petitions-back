@@ -1,11 +1,23 @@
 # Dimigo-Petitions
 Python의 비동기 웹 프레임워크인 Sanic을 사용
 
-## Login with Dimigo ID
-디미고 계정으로 로그인
+## API 목차
+
+- [로그인](#로그인)
+  - [디미고 계정으로 로그인](#디미고-계정으로-로그인)
+- [청원](#청원)
+  - [청원 생성하기](#청원-생성하기)
+  - [청원 조회하기](#청원-조회하기)
+  - [청원 수정하기](#청원-수정하기)
+  - [청원 삭제하기](#청원-삭제하기)
+
+## 로그인
+
+### 디미고 계정으로 로그인
+- `POST /auth/login`
 - 공개 디미고인 API를 이용해서 인증
 
-### request
+#### request
 ```json
 {
     "id": "test",
@@ -16,7 +28,7 @@ Python의 비동기 웹 프레임워크인 Sanic을 사용
 - `id`: 사용자 아이디
 - `password`: 사용자 비밀번호
 
-### response
+#### response
 ```json
 {
     "token": "(JWT 토큰)",
@@ -47,3 +59,27 @@ Python의 비동기 웹 프레임워크인 Sanic을 사용
   - `photo`: 학생 사진
   - `email`: 학생 이메일
   - `user_type`: 회원 종류(학생은 `S`)
+
+
+## 청원
+
+### 청원 생성하기
+- `POST /post/`
+
+#### request
+ 
+#### response
+```json
+{
+    "post_id": "5cf268f6fff7002fc90b3ddf"
+}
+```
+
+### 청원 조회하기
+- `GET /post/{post_id}`
+
+### 청원 수정하기
+- `PUT /post/{post_id}`
+
+### 청원 삭제하기
+- `DELETE /post/{post_id}`
