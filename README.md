@@ -2,7 +2,7 @@
 Python의 비동기 웹 프레임워크인 Sanic을 사용; 프로젝트 구조와 문서화에 신경쓰며 개발하는 것이 목표
 
 ## Prototype Design
-<img src="./images/front-proto-1.png" width="40%" align="top"><img src="./images/front-proto-2.png" width="40%" style="margin-left: 1.5em">
+![frontend prototype design](./images/front-proto.png)
 
 ## API 목차
 
