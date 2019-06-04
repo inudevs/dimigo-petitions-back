@@ -1,9 +1,10 @@
 from sanic import Blueprint
 
 post_api = Blueprint(
-    'post',
-    url_prefix='/post',
+    'posts',
+    url_prefix='/posts',
     strict_slashes=True
 )
 
-__import__('server.api.post.resources.post')
+__import__('server.api.post.resources.posts')
+__import__('server.api.post.resources.likes')
