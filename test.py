@@ -47,6 +47,7 @@ async def test_fixture_post(test_cli, token):
         }, json={
             'name': '연애하게 해주세요',
             'content': '어차피 대부분은 못 할 거예요 ^~^',
+            'topic': '테스트',
             # 'image': 'https://www.dimigo.hs.kr/layouts/minimal_dimigo/static/dimigo_logo_white.png'
         })
     assert resp.status == 200
