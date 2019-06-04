@@ -30,7 +30,8 @@ async def write_post(request, token: Token):
         'image': request.json.get('image'),
         'timestamp': int(time.time()),
         'author': user['name'],
-        'author_id': user['id']
+        'author_id': user['id'],
+        'topic': request.json['topic']
     }
     res = await request.app.db.posts.insert_one(post)
     if not res.acknowledged:
@@ -66,11 +67,13 @@ async def edit_post(request, token: Token, post_id):
     _name = request.json.get('name')
     _content = request.json.get('content')
     _image = request.json.get('image')
+    _topic = request.json.get('topic')
     res = await request.app.db.posts.update_one({'_id': ObjectId(post_id)}, {
         '$set': {
             'name': _name if _name else post['name'],
             'content': _name if _content else post['content'],
             'image': _name if _image else post['image'],
+            'topic': _topic if _topic else post['topic']
         }
     })
     if not res.acknowledged:
