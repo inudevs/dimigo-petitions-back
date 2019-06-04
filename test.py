@@ -40,7 +40,7 @@ async def test_fixture_login(test_cli, user):
 async def test_fixture_post(test_cli, token):
     # write post
     custom_log('WRITE POST')
-    resp = await test_cli.post('/post/',
+    resp = await test_cli.post('/posts/',
         headers = {
             'authorization': 'Bearer {}'.format(token),
             'content-type': 'application/json'
@@ -58,7 +58,7 @@ async def test_fixture_post(test_cli, token):
     # view post
     async def view_post(status=200):
         custom_log('VIEW POST')
-        resp = await test_cli.get('/post/{}'.format(post_id),
+        resp = await test_cli.get('/posts/{}'.format(post_id),
             headers = {
                 'authorization': 'Bearer {}'.format(token),
                 'content-type': 'application/json'
@@ -72,7 +72,7 @@ async def test_fixture_post(test_cli, token):
 
     # edit post
     custom_log('EDIT POST')
-    resp = await test_cli.put('/post/{}'.format(post_id),
+    resp = await test_cli.put('/posts/{}'.format(post_id),
         headers = {
             'authorization': 'Bearer {}'.format(token),
             'content-type': 'application/json'
@@ -86,7 +86,7 @@ async def test_fixture_post(test_cli, token):
 
     # delete post
     custom_log('DELETE POST')
-    resp = await test_cli.delete('/post/{}'.format(post_id),
+    resp = await test_cli.delete('/posts/{}'.format(post_id),
         headers = {
             'authorization': 'Bearer {}'.format(token),
             'content-type': 'application/json'
