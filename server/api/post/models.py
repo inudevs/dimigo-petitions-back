@@ -4,11 +4,13 @@ class PostInputModel:
     name = doc.String('청원 제목', required=True)
     content = doc.String('청원 내용', required=True)
     image = doc.String('이미지 URL')
+    topic = doc.String('분류')
 
 class PostEditModel:
     name = doc.String('청원 제목')
     content = doc.String('청원 내용')
     image = doc.String('이미지 URL')
+    topic = doc.String('분류')
 
 class PostCreatedModel:
     post_id = doc.String('생성된 포스트 id')
@@ -27,3 +29,4 @@ class PostViewModel:
     timestamp = doc.Integer('타임스탬프')
     author = doc.Integer('게시자의 디미고인 id')
     author_id = doc.Integer('게시자의 ObjectId')
+    topic = doc.String('분류')
