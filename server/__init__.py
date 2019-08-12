@@ -8,7 +8,7 @@ def create_app():
     _app = Sanic(__name__)
     _app.config.from_object(DevConfig)
     JWTManager(_app)
-    CORS(_app)
+    CORS(_app, automatic_options=True)
 
     _app.blueprint(swagger_blueprint)
 
