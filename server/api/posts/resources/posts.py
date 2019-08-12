@@ -1,5 +1,5 @@
-from server.api.post import post_api
-from server.api.post.models import (
+from server.api.posts import post_api
+from server.api.posts.models import (
     PostInputModel, 
     PostEditModel,
     PostCreatedModel,

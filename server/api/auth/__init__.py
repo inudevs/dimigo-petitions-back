@@ -1,7 +1,7 @@
 from sanic import Blueprint
 
 auth_api = Blueprint(
-    'auth',
+    'Auth',
     url_prefix='/auth',
     strict_slashes=True
 )
