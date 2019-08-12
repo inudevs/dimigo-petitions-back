@@ -7,4 +7,4 @@ post_api = Blueprint(
 )
 
 __import__('server.api.post.resources.posts')
-__import__('server.api.post.resources.likes')
+__import__('server.api.post.resources.comments')

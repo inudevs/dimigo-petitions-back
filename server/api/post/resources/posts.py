@@ -14,6 +14,19 @@ from sanic_jwt_extended.tokens import Token
 from bson import ObjectId
 import time
 
+@post_api.get('/')
+@doc.summary('청원 리스트')
+async def list_post(request):
+    cursor = request.app.db.posts.find({})
+    posts = await cursor.to_list(length=50)
+    for idx, post in enumerate(posts):
+        post['id'] = str(post['_id'])
+        del post['_id']
+        post['idx'] = idx + 1
+        post['likes'] = len(post['comments'])
+        post['expire'] = '2019-09-15' # test data
+    return res_json({ 'posts': posts })
+
 @post_api.post('/')
 @jwt_required
 @doc.summary('청원 생성')
@@ -26,10 +39,10 @@ async def write_post(request, token: Token):
     post = {
         'name': request.json['name'],
         'content': request.json['content'],
-        'likes': [],
+        'comments': [],
         'image': request.json.get('image'),
         'timestamp': int(time.time()),
-        'author': user['name'],
+        'author': user['name'][0] + '**',
         'author_id': user['id'],
         'topic': request.json['topic']
     }
@@ -40,17 +53,24 @@ async def write_post(request, token: Token):
         'post_id': str(res.inserted_id)
     })
 
-@post_api.get('/<post_id>')
-@jwt_required
+@post_api.get('/<post_id:string>')
+# @jwt_required
 @doc.summary('청원 보기')
 @doc.produces(PostViewModel, content_type='application/json', description='성공적')
 @doc.response(200, None, description='성공')
 @doc.response(404, None, description='잘못된 요청; 없는 포스트')
-async def view_post(request, token: Token, post_id):
+async def view_post(request, post_id):
     post = await request.app.db.posts.find_one(ObjectId(post_id))
     if not post:
         abort(404)
     post['_id'] = str(post['_id'])
+
+    # TODO: post metadata
+    post['status'] = True
+    post['start'] = '2019-08-12'
+    post['expire'] = '2019-09-15'
+
+    post['likes'] = len(post['comments'])
     return res_json(post)
 
 @post_api.put('/<post_id>')

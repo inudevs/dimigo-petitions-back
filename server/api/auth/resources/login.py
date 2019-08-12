@@ -39,7 +39,7 @@ async def AuthLogin(request):
 
     identity = {
         'id': str(user['_id']),
-        'name': _id
+        'name': user['student']['name']
     }
     token = await create_access_token(identity=identity, app=request.app)
     refresh_token = await create_refresh_token(identity=identity, app=request.app)

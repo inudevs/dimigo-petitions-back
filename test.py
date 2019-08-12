@@ -85,13 +85,13 @@ async def test_fixture_post(test_cli, token):
     await view_post()
 
     # delete post
-    custom_log('DELETE POST')
-    resp = await test_cli.delete('/posts/{}'.format(post_id),
-        headers = {
-            'authorization': 'Bearer {}'.format(token),
-            'content-type': 'application/json'
-        })
-    assert resp.status == 200
+    # custom_log('DELETE POST')
+    # resp = await test_cli.delete('/posts/{}'.format(post_id),
+    #     headers = {
+    #         'authorization': 'Bearer {}'.format(token),
+    #         'content-type': 'application/json'
+    #     })
+    # assert resp.status == 200
 
     # view post
-    await view_post(404)
+    # await view_post(404)
