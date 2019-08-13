@@ -45,8 +45,8 @@ async def test_fixture_post(test_cli, token):
             'authorization': 'Bearer {}'.format(token),
             'content-type': 'application/json'
         }, json={
-            'name': '연애하게 해주세요',
-            'content': '어차피 대부분은 못 할 거예요 ^~^',
+            'name': '디미청원을 써주세요',
+            'content': '꼭 써주세요 선생님~ ^~^',
             'topic': '테스트',
             # 'image': 'https://www.dimigo.hs.kr/layouts/minimal_dimigo/static/dimigo_logo_white.png'
         })
@@ -71,18 +71,18 @@ async def test_fixture_post(test_cli, token):
     await view_post()
 
     # edit post
-    custom_log('EDIT POST')
-    resp = await test_cli.put('/posts/{}'.format(post_id),
-        headers = {
-            'authorization': 'Bearer {}'.format(token),
-            'content-type': 'application/json'
-        }, json={
-            'name': '연애하지 마세요'
-        })
-    assert resp.status == 200
+    # custom_log('EDIT POST')
+    # resp = await test_cli.put('/posts/{}'.format(post_id),
+    #     headers = {
+    #         'authorization': 'Bearer {}'.format(token),
+    #         'content-type': 'application/json'
+    #     }, json={
+    #         'name': '수정해버렸다.'
+    #     })
+    # assert resp.status == 200
 
     # view post
-    await view_post()
+    # await view_post()
 
     # delete post
     # custom_log('DELETE POST')

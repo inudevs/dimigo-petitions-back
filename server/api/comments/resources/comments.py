@@ -18,13 +18,13 @@ async def write_comments(request, token: Token, post_id):
     if not post:
         abort(404)
 
-    if any(comment['author'] == user['name'] for comment in post['comments']):
+    if any(comment['author_id'] == user['id'] for comment in post['comments']):
         abort(400)
 
     comment = {
         'content': request.json['content'],
         'timestamp': int(time.time()),
-        'author': user['name'],
+        'author': '{} {}'.format(user['serial'], user['name']),
         'author_id': user['id'],
     }
 
