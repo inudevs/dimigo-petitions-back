@@ -43,6 +43,17 @@ async def write_comments(request, token: Token, post_id):
 @jwt_required
 @doc.summary('청원 댓글 수정')
 async def edit_comments(request, token: Token, post_id):
+    user = token.jwt_identity
+    res = await request.app.db.posts.update_one({
+        '_id': ObjectId(post_id),
+        'comments.author_id': user['id']
+    }, {
+        '$set': {
+            'comments.$.content': request.json['content']
+        }
+    })
+    if not res.acknowledged:
+        abort(404)
     return res_json({})
 
 
