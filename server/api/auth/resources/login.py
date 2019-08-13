@@ -44,7 +44,8 @@ async def AuthLogin(request):
     token = await create_access_token(identity=identity, app=request.app)
     refresh_token = await create_refresh_token(identity=identity, app=request.app)
     return res_json({
+        'id': identity['id'],
         'token': token,
         'refresh_token': refresh_token,
-        'user': user['student']
+        # 'user': user['student']
     })

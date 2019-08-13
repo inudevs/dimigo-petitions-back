@@ -22,10 +22,10 @@ async def write_comments(request, token: Token, post_id):
         abort(400)
 
     comment = {
-        content: request.json['content'],
-        timestamp: int(time.time()),
-        author: user['name'],
-        author_id: user['id'],
+        'content': request.json['content'],
+        'timestamp': int(time.time()),
+        'author': user['name'],
+        'author_id': user['id'],
     }
 
     res = await request.app.db.posts.update_one({'_id': ObjectId(post_id)}, {
@@ -50,4 +50,14 @@ async def edit_comments(request, token: Token, post_id):
 @jwt_required
 @doc.summary('청원 댓글 삭제')
 async def delete_comments(request, token: Token, post_id):
+    user = token.jwt_identity
+    res = await request.app.db.posts.update_one({'_id': ObjectId(post_id)}, {
+        '$pull': {
+            'comments': {
+                'author_id': user['id'] 
+            }
+        }
+    })
+    if not res.acknowledged:
+        abort(404)
     return res_json({})
