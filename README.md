@@ -1,6 +1,10 @@
 # Dimigo-Petitions [![Python 3.7](https://img.shields.io/badge/python-3.7-blue.svg)](https://www.python.org/downloads/release/python-370)
 Python의 비동기 웹 프레임워크인 Sanic을 사용; 프로젝트 구조와 문서화에 신경쓰며 개발하는 것이 목표
 
+```bash
+nohup /home/ubuntu/.local/bin/uvicorn server:app --host 127.0.0.1 --port 5001
+```
+
 ## API 목차
 
 - [로그인](#로그인)

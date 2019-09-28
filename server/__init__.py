@@ -15,7 +15,7 @@ def create_app():
     from motor.motor_asyncio import AsyncIOMotorClient
     @_app.listener('before_server_start')
     def init(app, loop):
-        _app.db = AsyncIOMotorClient(_app.config.MONGO_URI)[_app.config.MONGO_DB]
+        _app.db = AsyncIOMotorClient(_app.config.MONGO_URI)
 
     from server.api import api
     _app.blueprint(api)

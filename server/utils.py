@@ -8,6 +8,6 @@ def jwt_required(function):
         if not token:
             abort(401)
 
-        identity = jwt.decode(token, verify=False)['data']
+        identity = jwt.decode(token, verify=False)['identity']
         return function(*args, identity, **kwargs)
     return wrap_function

@@ -1,6 +1,7 @@
 .vscode/
 .DS_Store
 
+nohup.out
 secret.json
 
 # Byte-compiled / optimized / DLL files
