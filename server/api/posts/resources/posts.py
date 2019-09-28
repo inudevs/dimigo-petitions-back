@@ -9,14 +9,15 @@ from sanic.views import HTTPMethodView
 from sanic.exceptions import abort
 from sanic.response import json as res_json
 from sanic_openapi import doc
-from sanic_jwt_extended import jwt_required
+from server.utils import jwt_required
 from sanic_jwt_extended.tokens import Token
 from bson import ObjectId
 import time
 
 @post_api.get('/')
+@jwt_required
 @doc.summary('청원 리스트')
-async def list_post(request):
+async def list_post(request, identity: dict):
     cursor = request.app.db.posts.find({})
     posts = await cursor.to_list(length=50)
     for idx, post in enumerate(posts):
@@ -34,16 +35,15 @@ async def list_post(request):
 @doc.produces(PostCreatedModel, content_type='application/json', description='성공적')
 @doc.response(200, None, description='성공')
 @doc.response(500, None, description='저장 중 오류')
-async def write_post(request, token: Token):
-    user = token.jwt_identity
+async def write_post(request, identity: dict):
     post = {
         'name': request.json['name'],
         'content': request.json['content'],
         'comments': [],
         'image': request.json.get('image'),
         'timestamp': int(time.time()),
-        'author': user['name'][0] + '**',
-        'author_id': user['id'],
+        'author': identity['name'][0] + '**',
+        'author_id': identity['id'],
         'topic': request.json['topic']
     }
     res = await request.app.db.posts.insert_one(post)
@@ -80,7 +80,7 @@ async def view_post(request, post_id):
 @doc.response(200, None, description='성공')
 @doc.response(404, None, description='잘못된 요청; 없는 포스트')
 @doc.response(404, None, description='수정 중 오류')
-async def edit_post(request, token: Token, post_id):
+async def edit_post(request, identity: dict, post_id):
     post = await request.app.db.posts.find_one(ObjectId(post_id))
     if not post:
         abort(404)
@@ -105,7 +105,7 @@ async def edit_post(request, token: Token, post_id):
 @doc.summary('청원 삭제')
 @doc.response(200, None, description='성공')
 @doc.response(404, None, description='잘못된 요청; 없는 포스트')
-async def delete_post(request, token: Token, post_id):
+async def delete_post(request, identity: dict, post_id):
     res = await request.app.db.posts.delete_one({'_id': ObjectId(post_id)})
     if not res.acknowledged:
         abort(404)
