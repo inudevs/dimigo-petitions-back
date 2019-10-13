@@ -23,7 +23,7 @@ async def write_comments(request, identity: dict, post_id):
     comment = {
         'content': request.json['content'],
         'timestamp': int(time.time()),
-        'author': '{} {}'.format(identity['serial'], identity['name']),
+        'author': '{} {}'.format(identity['student']['serial'], identity['name']),
         'author_id': identity['id'],
     }
 
