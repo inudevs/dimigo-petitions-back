@@ -2,7 +2,7 @@
 Python의 비동기 웹 프레임워크인 Sanic을 사용; 프로젝트 구조와 문서화에 신경쓰며 개발하는 것이 목표
 
 ```bash
-nohup /home/ubuntu/.local/bin/uvicorn server:app --host 127.0.0.1 --port 5001
+nohup uvicorn server:app --host 0.0.0.0 --port 5001
 ```
 
 ## API 목차
